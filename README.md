@@ -8,6 +8,8 @@
 
 # ShopMate
 
+![Award](https://img.shields.io/badge/%F0%9F%8F%86%20SaaSathon%202026-Most%20Applauded%20Prize-gold)
+
 > This is my fork of a hackathon team project. See [My Contributions](#my-contributions) below for what I built.
 
 Cook any cuisine with confidence in New Zealand. Search recipes from around the world, find ingredients at local supermarkets, compare prices across stores, and get smart substitutions for hard-to-find items.
