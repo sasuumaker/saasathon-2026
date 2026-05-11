@@ -1,6 +1,3 @@
-[![CI](https://github.com/takahiro-okada/saasathon-2026/actions/workflows/ci.yml/badge.svg)](https://github.com/takahiro-okada/saasathon-2026/actions/workflows/ci.yml)
-[![CodeQL](https://github.com/takahiro-okada/saasathon-2026/actions/workflows/codeql.yml/badge.svg)](https://github.com/takahiro-okada/saasathon-2026/actions/workflows/codeql.yml)
-[![Lighthouse CI](https://github.com/takahiro-okada/saasathon-2026/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/takahiro-okada/saasathon-2026/actions/workflows/lighthouse.yml)
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript&logoColor=white)
@@ -8,13 +5,41 @@
 ![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?logo=supabase&logoColor=white)
 ![Claude](https://img.shields.io/badge/Claude-Sonnet%20%2B%20Haiku-D97757?logo=anthropic&logoColor=white)
 [![Vercel](https://img.shields.io/badge/Vercel-Deployed-black?logo=vercel)](https://saasathon-2026.vercel.app)
-![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-FE5196?logo=conventionalcommits&logoColor=white)
 
 # ShopMate
 
+> This is my fork of a hackathon team project. See [My Contributions](#my-contributions) below for what I built.
+
 Cook any cuisine with confidence in New Zealand. Search recipes from around the world, find ingredients at local supermarkets, compare prices across stores, and get smart substitutions for hard-to-find items.
 
-**Live**: https://saasathon-2026.vercel.app
+**Live**: https://saasathon-2026.vercel.app  
+**Original repo**: https://github.com/takahiro-okada/saasathon-2026
+
+## My Contributions
+
+This app was built at SaaSathon 2026 (hackathon). I was responsible for **the entire application development** -- from architecture design to frontend/backend implementation and UI design. The team collaborated on ideation and product direction.
+
+### What I built (53 of 87 commits, 61%)
+
+- **Full-stack architecture** -- Designed and implemented the Next.js App Router structure, API routes, database schema, and Supabase integration from scratch
+- **AI-powered recipe engine** -- Built the recipe generation pipeline using Claude Sonnet for structured JSON output, with DB caching for instant repeat lookups
+- **Supermarket price scraping** -- Implemented real-time product scrapers for Woolworths, Pak'nSave, and New World APIs, with 24h TTL caching
+- **AI ingredient substitution** -- Claude Haiku suggests NZ-available alternatives when Japanese ingredients are not found, then searches substitutes in supermarket APIs
+- **Cross-store price comparison** -- Side-by-side ingredient pricing across 3 stores with cheapest-store recommendations
+- **Multilingual support (i18n)** -- Full EN/JA/ZH internationalization with locale-aware recipe name display
+- **UI/UX design** -- Designed the entire interface with a warm sage green / cream NZ-inspired palette, real store logos, onboarding tutorial, and responsive mobile-first layout
+- **Component architecture** -- Refactored from a monolithic page into modular components (15+ files), types, constants, and utility modules
+- **CI/CD pipeline** -- Jest test suites (i18n + scraper), GitHub Actions (CI, CodeQL, Lighthouse, PR-title lint, bundle-size tracking, Dependabot)
+
+### Tech decisions I made
+
+| Decision | Reasoning |
+|----------|-----------|
+| Claude Sonnet for recipe generation | Structured JSON output quality was critical; Haiku wasn't reliable enough for complex recipe schemas |
+| Cache-first architecture | First search hits AI + scraper (slow); subsequent searches are instant from Supabase |
+| Real scraper APIs over mock data | Hackathon judges value real data; invested time in reverse-engineering supermarket APIs |
+| Tailwind CSS 4 with CSS custom properties | Design tokens as CSS variables for consistent theming without a component library |
+| Component extraction post-MVP | Built fast in one file first, then refactored for maintainability after core features were stable |
 
 ## Features
 
