@@ -12,7 +12,7 @@
 
 > This is my fork of a hackathon team project. See [My Contributions](#my-contributions) below for what I built.
 
-Cook any cuisine with confidence in New Zealand. Search recipes from around the world, find ingredients at local supermarkets, compare prices across stores, and get smart substitutions for hard-to-find items.
+Cook any cuisine with confidence in New Zealand. Search for any dish you want to make, and ShopMate gives you a full ingredient list with the exact product names used at local supermarkets. No more guessing what things are called in English or struggling with store-specific naming -- especially useful for non-native English speakers still getting familiar with NZ grocery terminology. Compare prices across Woolworths, Pak'nSave, and New World, and get AI-powered substitutions when ingredients aren't available.
 
 **Live**: https://saasathon-2026.vercel.app  
 **Original repo**: https://github.com/takahiro-okada/saasathon-2026
