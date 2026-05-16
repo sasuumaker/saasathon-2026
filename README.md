@@ -8,38 +8,41 @@
 
 # ShopMate
 
-![Award](https://img.shields.io/badge/%F0%9F%8F%86%20SaaSathon%202026-Most%20Applauded%20Prize-gold)
+### Won the Most Applauded Prize at SaaSathon 2026
 
-> This is my fork of a hackathon team project. See [My Contributions](#my-contributions) below for what I built.
+Built in 3 days at [SaaSathon 2026](https://saasathon.com), a hackathon held at the **University of Canterbury** (Christchurch, NZ) on **8--10 June 2026**. Our team received the **Most Applauded Prize**, voted by all participants and judges.
 
-Cook any cuisine with confidence in New Zealand. Search for any dish you want to make, and ShopMate gives you a full ingredient list with the exact product names used at local supermarkets. No more guessing what things are called in English or struggling with store-specific naming -- especially useful for non-native English speakers still getting familiar with NZ grocery terminology. Compare prices across Woolworths, Pak'nSave, and New World, and get AI-powered substitutions when ingredients aren't available.
+> **[Try the live demo](https://saasathon-2026-psi.vercel.app)**
 
-**Live Demo**: [https://saasathon-2026-psi.vercel.app](https://saasathon-2026-psi.vercel.app)  
-**Original repo**: https://github.com/takahiro-okada/saasathon-2026
+---
+
+Cook any cuisine with confidence in New Zealand. Search for any dish and ShopMate gives you a full ingredient list mapped to the exact product names at local supermarkets -- no more guessing what things are called in English. Compare prices across Woolworths, Pak'nSave, and New World, and get AI-powered substitutions when ingredients aren't available.
+
+**Original team repo**: [takahiro-okada/saasathon-2026](https://github.com/takahiro-okada/saasathon-2026)
 
 ## My Contributions
 
-This app was built at SaaSathon 2026 (hackathon). I was responsible for **the entire application development** -- from architecture design to frontend/backend implementation and UI design. The team collaborated on ideation and product direction.
+This is my fork of the hackathon team project. I was responsible for **the entire application development** -- architecture design, frontend, backend, database, and UI. The team collaborated on ideation and product direction.
 
 ### What I built (53 of 87 commits, 61%)
 
 - **Full-stack architecture** -- Designed and implemented the Next.js App Router structure, API routes, database schema, and Supabase integration from scratch
 - **AI-powered recipe engine** -- Built the recipe generation pipeline using Claude Sonnet for structured JSON output, with DB caching for instant repeat lookups
-- **Supermarket price scraping** -- Implemented real-time product scrapers for Woolworths, Pak'nSave, and New World APIs, with DB-level caching
-- **AI ingredient substitution** -- Claude Haiku suggests NZ-available alternatives when Japanese ingredients are not found, then searches substitutes in supermarket APIs
-- **Cross-store price comparison** -- Side-by-side ingredient pricing across 3 stores with cheapest-store recommendations
-- **Multilingual support (i18n)** -- Full EN/JA/ZH internationalization with locale-aware recipe name display
-- **UI/UX design** -- Designed the entire interface with a warm sage green / cream NZ-inspired palette, real store logos, onboarding tutorial, and responsive mobile-first layout
+- **Supermarket price scraping** -- Reverse-engineered and integrated real-time product APIs for Woolworths, Pak'nSave, and New World, with DB-level caching
+- **AI ingredient substitution** -- Claude Haiku suggests NZ-available alternatives when ingredients aren't found, then searches substitutes in supermarket APIs
+- **Cross-store price comparison** -- Side-by-side ingredient pricing across 3 stores with cheapest-store recommendation
+- **Multilingual support (i18n)** -- Full EN/JA/ZH internationalization with locale-aware recipe display
+- **UI/UX design** -- Designed the entire interface with a warm sage green / cream NZ-inspired palette, real store logos, onboarding flow, and responsive mobile-first layout
 - **Component architecture** -- Refactored from a monolithic page into modular components (15+ files), types, constants, and utility modules
-- **CI/CD pipeline** -- Jest test suites (i18n + scraper), GitHub Actions (CI, CodeQL, Lighthouse, PR-title lint, bundle-size tracking, Dependabot)
+- **CI/CD pipeline** -- Jest test suites, GitHub Actions (CI, CodeQL, Lighthouse, PR-title lint, bundle-size tracking, Dependabot)
 
-### Tech decisions I made
+### Key technical decisions
 
 | Decision | Reasoning |
 |----------|-----------|
 | Claude Sonnet for recipe generation | Structured JSON output quality was critical; Haiku wasn't reliable enough for complex recipe schemas |
 | Cache-first architecture | First search hits AI + scraper (slow); subsequent searches are instant from Supabase |
-| Real scraper APIs over mock data | Hackathon judges value real data; invested time in reverse-engineering supermarket APIs |
+| Real scraper APIs over mock data | Judges value real data; invested time in reverse-engineering supermarket APIs |
 | Tailwind CSS 4 with CSS custom properties | Design tokens as CSS variables for consistent theming without a component library |
 | Component extraction post-MVP | Built fast in one file first, then refactored for maintainability after core features were stable |
 
@@ -63,6 +66,37 @@ This app was built at SaaSathon 2026 (hackathon). I was responsible for **the en
 | AI (Recipe) | Claude Sonnet |
 | AI (Chat/Substitution) | Claude Haiku |
 | Deployment | Vercel |
+
+## Architecture
+
+```
+User Input (any dish name, any language)
+  |
+  v
+DB Cache Check (recipes + recipe_ingredients + ingredients)
+  |-- HIT --> Return instantly
+  |-- MISS --v
+             Claude Sonnet generates recipe JSON
+               |
+               v
+             Save to DB (async, non-blocking)
+               |
+               v
+             Match ingredients against DB
+               |
+               v
+             Supermarket API for live prices
+               |-- Not found --> Claude Haiku suggests alternatives
+               |                   |
+               |                   v
+               |                 Search alternatives in supermarket
+               |
+               v
+             Cache in store_products
+               |
+               v
+             Return to frontend (prices, stock, alternatives)
+```
 
 ## Project Structure
 
@@ -116,37 +150,6 @@ This app was built at SaaSathon 2026 (hackathon). I was responsible for **the en
 │
 └── public/
     └── logos/                  # Store logo SVGs
-```
-
-## Architecture
-
-```
-User Input (any dish name, any language)
-  |
-  v
-DB Cache Check (recipes + recipe_ingredients + ingredients)
-  |-- HIT --> Return instantly
-  |-- MISS --v
-             Claude Sonnet generates recipe JSON
-               |
-               v
-             Save to DB (async, non-blocking)
-               |
-               v
-             Match ingredients against DB
-               |
-               v
-             Supermarket API for live prices
-               |-- Not found --> Claude Haiku suggests alternatives
-               |                   |
-               |                   v
-               |                 Search alternatives in supermarket
-               |
-               v
-             Cache in store_products
-               |
-               v
-             Return to frontend (prices, stock, alternatives)
 ```
 
 ## Getting Started
