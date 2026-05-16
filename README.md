@@ -4,7 +4,7 @@
 ![Tailwind](https://img.shields.io/badge/Tailwind-4-38BDF8?logo=tailwindcss&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?logo=supabase&logoColor=white)
 ![Claude](https://img.shields.io/badge/Claude-Sonnet%20%2B%20Haiku-D97757?logo=anthropic&logoColor=white)
-[![Vercel](https://img.shields.io/badge/Vercel-Deployed-black?logo=vercel)](https://saasathon-2026.vercel.app)
+[![Vercel](https://img.shields.io/badge/Vercel-Deployed-black?logo=vercel)](https://saasathon-2026-psi.vercel.app)
 
 # ShopMate
 
@@ -14,7 +14,7 @@
 
 Cook any cuisine with confidence in New Zealand. Search for any dish you want to make, and ShopMate gives you a full ingredient list with the exact product names used at local supermarkets. No more guessing what things are called in English or struggling with store-specific naming -- especially useful for non-native English speakers still getting familiar with NZ grocery terminology. Compare prices across Woolworths, Pak'nSave, and New World, and get AI-powered substitutions when ingredients aren't available.
 
-**Live**: https://saasathon-2026.vercel.app  
+**Live Demo**: [https://saasathon-2026-psi.vercel.app](https://saasathon-2026-psi.vercel.app)  
 **Original repo**: https://github.com/takahiro-okada/saasathon-2026
 
 ## My Contributions
@@ -25,7 +25,7 @@ This app was built at SaaSathon 2026 (hackathon). I was responsible for **the en
 
 - **Full-stack architecture** -- Designed and implemented the Next.js App Router structure, API routes, database schema, and Supabase integration from scratch
 - **AI-powered recipe engine** -- Built the recipe generation pipeline using Claude Sonnet for structured JSON output, with DB caching for instant repeat lookups
-- **Supermarket price scraping** -- Implemented real-time product scrapers for Woolworths, Pak'nSave, and New World APIs, with 24h TTL caching
+- **Supermarket price scraping** -- Implemented real-time product scrapers for Woolworths, Pak'nSave, and New World APIs, with DB-level caching
 - **AI ingredient substitution** -- Claude Haiku suggests NZ-available alternatives when Japanese ingredients are not found, then searches substitutes in supermarket APIs
 - **Cross-store price comparison** -- Side-by-side ingredient pricing across 3 stores with cheapest-store recommendations
 - **Multilingual support (i18n)** -- Full EN/JA/ZH internationalization with locale-aware recipe name display
@@ -143,7 +143,7 @@ DB Cache Check (recipes + recipe_ingredients + ingredients)
                |                 Search alternatives in supermarket
                |
                v
-             Cache in store_products (24h TTL)
+             Cache in store_products
                |
                v
              Return to frontend (prices, stock, alternatives)
