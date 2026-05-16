@@ -128,10 +128,6 @@ async function getProductForStore(
       .select("*")
       .eq("ingredient_id", ingredientId)
       .eq("store", brand)
-      .gte(
-        "scraped_at",
-        new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
-      )
       .order("scraped_at", { ascending: false })
       .limit(1);
 
